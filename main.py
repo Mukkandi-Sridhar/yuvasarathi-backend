@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dhraviq_bot import DhraviqBot  # updated import
 
+print("✅ main.py has started.")  # Debug to confirm this file is loaded
+
 app = FastAPI()
 bot = DhraviqBot()  # updated instance
 
@@ -32,4 +34,5 @@ def health_check():
 # ✅ Debug route to confirm main.py is running
 @app.get("/debug")
 def debug_check():
+    print("✅ /debug route called.")  # Log when this route is triggered
     return {"file": "main.py is running"}
