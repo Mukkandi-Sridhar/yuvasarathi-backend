@@ -28,3 +28,8 @@ def chat(message: Message):
 @app.get("/health")
 def health_check():
     return {"status": "ok"}
+
+# ✅ Debug route to confirm main.py is running
+@app.get("/debug")
+def debug_check():
+    return {"file": "main.py is running"}
