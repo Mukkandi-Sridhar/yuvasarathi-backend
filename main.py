@@ -3,12 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dhraviq_bot import DhraviqBot
 
-print("✅ entrypoint.py has started.")
-
 app = FastAPI()
 bot = DhraviqBot()
 
-# CORS middleware
+# CORS settings
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -16,10 +14,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Request schema
 class Message(BaseModel):
     user_input: str
     chat_history: list
 
+# Routes
 @app.post("/chat")
 def chat(message: Message):
     return {"response": bot.respond(message.user_input, message.chat_history)}
@@ -30,5 +30,4 @@ def health_check():
 
 @app.get("/debug")
 def debug_check():
-    print("✅ /debug route called.")
-    return {"file": "entrypoint.py is running"}
+    return {"file": "main.py is running"}
