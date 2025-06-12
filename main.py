@@ -1,22 +1,25 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from yuvasaarthi_bot import YuvaSaarthiBot
+from dhraviq_bot import DhraviqBot  # updated import
 
 app = FastAPI()
-bot = YuvaSaarthiBot()
+bot = DhraviqBot()  # updated instance
 
+# CORS middleware for frontend/backend communication
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all for dev
+    allow_origins=["*"],  # Allow all origins (for development)
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# Request body schema
 class Message(BaseModel):
     user_input: str
     chat_history: list
 
+# Chat endpoint
 @app.post("/chat")
 def chat(message: Message):
     return {"response": bot.respond(message.user_input, message.chat_history)}
