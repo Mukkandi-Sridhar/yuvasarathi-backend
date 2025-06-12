@@ -23,3 +23,8 @@ class Message(BaseModel):
 @app.post("/chat")
 def chat(message: Message):
     return {"response": bot.respond(message.user_input, message.chat_history)}
+
+# ✅ Add this lightweight route to prevent cold start on Render
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}
