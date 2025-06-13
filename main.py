@@ -22,7 +22,8 @@ class Message(BaseModel):
 def chat(message: Message):
     return {"response": bot.respond(message.user_input, message.chat_history)}
 
-@app.get("/health")
+# ✅ Allow both GET and HEAD for health check
+@app.api_route("/health", methods=["GET", "HEAD"])
 def health_check():
     return {"status": "ok"}
 
